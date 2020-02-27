@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+
 public class MainActivity extends AppCompatActivity implements OnSharedPreferenceChangeListener {
 
     //these are constants and objects that I used, use them if you wish
@@ -73,12 +74,15 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     //TODO manage all the permissions you need
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //TODO be sure to set up the appbar in the activity
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //dont display these
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -88,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             @Override
             public void onClick(View view) {
                 //TODO manage this, mindful of permissions
+
 
             }
         });
@@ -185,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     @Override
     public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults) {
         //TODO fill in
+
     }
 
     //DUMP for students
@@ -201,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 
     //take a picture and store it on external storage
-    public void doTakePicture() {
+    public void doTakePicture(View view) {
         //TODO verify that app has permission to use camera
 
         //TODO manage launching intent to take a picture
@@ -352,5 +358,6 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         } catch (Exception ignored) {
         }
     }
+
 }
 

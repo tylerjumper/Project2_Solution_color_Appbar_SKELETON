@@ -2,4 +2,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <!--TODO fill these in-->
+
+    <item
+        android:title="@string/reset"
+        android:id="@+id/reset"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:visible="true"
+        android:onClick="doReset"></item>
+    <item
+        android:title="@string/sketch"
+        android:id="@+id/sketch"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:orderInCategory="200"
+        app:showAsAction="always"
+        android:visible="true"
+        android:onClick="doSketch"></item>
+
+    <item
+        android:title="@string/colorize"
+        android:id="@+id/colorize"
+        android:icon="@android:drawable/ic_menu_view"
+        android:orderInCategory="300"
+        app:showAsAction="always"
+        android:visible="true"
+        android:onClick="doColorize"></item>
+
+    <item
+        android:title="@string/share"
+        android:id="@+id/share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:orderInCategory="400"
+        app:showAsAction="always"
+        android:visible="true"
+        android:onClick="doShare"></item>
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        android:orderInCategory="400"
+        android:title="@string/settings"
+        android:visible="true"
+        app:showAsAction="always"></item>
+
 </menu>

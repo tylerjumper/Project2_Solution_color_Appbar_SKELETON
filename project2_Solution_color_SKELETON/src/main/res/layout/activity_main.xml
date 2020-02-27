@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:background="#77000000"
+        android:background="@android:color/transparent"
         android:fitsSystemWindows="true"
         >
 
@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:popupTheme="@style/AppTheme.PopupOverlay"
+            android:background="@android:color/transparent"
 
 
             />
@@ -45,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:onClick="doTakePicture"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
