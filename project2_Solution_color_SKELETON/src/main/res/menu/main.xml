@@ -10,7 +10,7 @@
         android:orderInCategory="100"
         app:showAsAction="always"
         android:visible="true"
-        android:onClick="doReset"></item>
+        android:onClick="onOptionsItemSelected"></item>
     <item
         android:title="@string/sketch"
         android:id="@+id/sketch"
@@ -18,7 +18,7 @@
         android:orderInCategory="200"
         app:showAsAction="always"
         android:visible="true"
-        android:onClick="doSketch"></item>
+        android:onClick="onOptionsItemSelected"></item>
 
     <item
         android:title="@string/colorize"
@@ -27,7 +27,7 @@
         android:orderInCategory="300"
         app:showAsAction="always"
         android:visible="true"
-        android:onClick="doColorize"></item>
+        android:onClick="onOptionsItemSelected"></item>
 
     <item
         android:title="@string/share"
@@ -36,14 +36,15 @@
         android:orderInCategory="400"
         app:showAsAction="always"
         android:visible="true"
-        android:onClick="doShare"></item>
+        android:onClick="onOptionsItemSelected"></item>
 
     <item
+        android:title="settings"
         android:id="@+id/settings"
         android:icon="@drawable/ic_more_vert_black_24dp"
-        android:orderInCategory="400"
-        android:title="@string/settings"
+        android:orderInCategory="500"
+        app:showAsAction="always"
         android:visible="true"
-        app:showAsAction="always"></item>
+        android:onClick="onOptionsItemSelected"></item>
 
 </menu>

@@ -3,6 +3,8 @@ package com.example.solution_color;
 
 import android.Manifest;
 import android.content.Intent;
+
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -72,9 +74,12 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     Bitmap bmpThresholded;              //the black and white version of original image
     Bitmap bmpThresholdedColor;         //the colorized version of the black and white image
 
-    //TODO manage all the permissions you need
+    //TODO manage all the permissions you need-----------------CHECK----------------------------
+    private SharedPreferences myPreference;
+    private SharedPreferences.OnSharedPreferenceChangeListener listener = null;
+    private boolean enablePreferenceListener;
 
-
+//begin onCreate-------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +97,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
             @Override
             public void onClick(View view) {
                 //TODO manage this, mindful of permissions
-
+                //1 ask permission
+                    //requestPermissions();
+                //2 call doTake picture
+                doTakePicture(view);
 
             }
         });
@@ -112,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         setUpFileSystem();
     }
+//end onCreate-------------------------------------
 
     private void setImage() {
         //prefer to display processed image if available
@@ -136,11 +145,14 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Log.d(DEBUG_TAG, "setImage: bmpOriginal copied");
     }
 
+//begin getPrefValues-------------------------------------
     //TODO use this to set the following member preferences whenever preferences are changed.
     //TODO Please ensure that this function is called by your preference change listener
     private void getPrefValues(SharedPreferences settings) {
         //TODO should track shareSubject, shareText, saturation, bwPercent
     }
+//end getPrefValues-------------------------------------
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -149,17 +161,22 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         return true;
     }
 
-
+//begin setUpFileSystem-------------------------------------
     private void setUpFileSystem(){
-        //TODO do we have needed permissions?
-        //TODO if not then dont proceed
+        //TODO do we have needed permissions?------------------CHECK----------------------------
+        //TODO if not then dont proceed------------------------CHECK----------------------------
+        if(!verifyPermissions()){
+            return;
+        }
 
         //get some paths
         // Create the File where the photo should go
         File photoFile = createImageFile(ORIGINAL_FILE);
+        assert photoFile != null;
         originalImagePath = photoFile.getAbsolutePath();
 
         File processedfile = createImageFile(PROCESSED_FILE);
+        assert processedfile != null;
         processedImagePath=processedfile.getAbsolutePath();
 
         //worst case get from default image
@@ -169,13 +186,17 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
         setImage();
     }
+//end setUpFileSystem-------------------------------------
 
+//begin createImageFile-------------------------------------
     //TODO manage creating a file to store camera image in
     //TODO where photo is stored
     private File createImageFile(final String fn) {
         //TODO fill in
         return null;
     }
+//end createImageFile-------------------------------------
+
 
     //DUMP for students
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -198,19 +219,44 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
      * Verify that the specific list of permisions requested have been granted, otherwise ask for
      * these permissions.  Note this is coarse in that I assumme I need them all
      */
+    //this will be called by a lot of the do___()
+    //methods because they need to check to see if they have permission
     private boolean verifyPermissions() {
+        //TODO fill in------------------------CHECK-----------------------------------------
 
-        //TODO fill in
+        ///checks to see if permission has been granted to access the camera
+        //if no return false, if yes keep going
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            return false;
+        }
 
-        //and return false until they are granted
-        return false;
+        //checks to see if permission has been granted to read from external storage
+        //if no return false, if yes keep going
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            return false;
+        }
+        //checks to see if permission has been granted to write to external storage
+        //if no return false, if yes keep going
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            return false;
+        }
+
+        //if all statements are true then all permissions have been granted
+        return true;
     }
 
     //take a picture and store it on external storage
     public void doTakePicture(View view) {
-        //TODO verify that app has permission to use camera
-
+        //TODO verify that app has permission to use camera------
+        verifyPermissions();
         //TODO manage launching intent to take a picture
+
 
     }
 
@@ -226,6 +272,8 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
     }
 
+
+//begin doReset-----------------------------------
     /**
      * delete original and processed images, then rescan media paths to pick up that they are gone.
      */
@@ -252,7 +300,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         //TODO make media scanner pick up that images are gone
 
     }
+//end doReset-----------------------------------
 
+
+//begin doSketch-----------------------------------
     public void doSketch() {
         //TODO verify that app has permission to use file system
         //do we have needed permissions?
@@ -274,7 +325,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Camera_Helpers.saveProcessedImage(bmpThresholded, processedImagePath);
         scanSavedMediaFile(processedImagePath);
     }
+//end doSketch-----------------------------------------
 
+//begin doColorize-----------------------------------
     public void doColorize() {
         //TODO verify that app has permission to use file system
         //do we have needed permissions?
@@ -307,7 +360,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         Camera_Helpers.saveProcessedImage(bmpThresholdedColor, processedImagePath);
         scanSavedMediaFile(processedImagePath);
     }
+//end doColorize-----------------------------------
 
+//begin doShare-----------------------------------
     public void doShare() {
         //TODO verify that app has permission to use file system
         //do we have needed permissions?
@@ -319,12 +374,36 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         //TODO the subject and text should come from the preferences set in the Settings Activity
 
     }
+//end doShare-----------------------------------
 
-    //TODO set this up
+
+    //TODO set this up-------------------------------CHECK------------------------------------
+    /*All event handlers for the app bar will be sent here then call
+    * the appropriate method based on what button was clicked*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //TODO handle all of the appbar button clicks
-
+       switch (item.getItemId()){
+           case R.id.reset:
+               //user chose reset button call doReset
+               doReset();
+               return true;
+           case R.id.sketch:
+               //user chose sketch button call doSketch
+               doSketch();
+               return true;
+           case R.id.colorize:
+               //user chose colorize button call doColorize
+               doColorize();
+               return true;
+           case R.id.share:
+               //user chose share button call doShare
+               doShare();
+               return true;
+           case R.id.settings:
+               //user chose settings button
+               return true;
+       }
         return true;
     }
 
