@@ -39,7 +39,7 @@
         android:onClick="onOptionsItemSelected"></item>
 
     <item
-        android:title="settings"
+        android:title="@string/settings"
         android:id="@+id/settings"
         android:icon="@drawable/ic_more_vert_black_24dp"
         android:orderInCategory="500"

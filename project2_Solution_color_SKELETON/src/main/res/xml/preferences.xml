@@ -3,25 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="@string/shareOptions">
         <EditTextPreference
-            android:defaultValue="@string/Subject"
             app:key="@string/Share_Subject"
-            android:summary="@string/subjectSummary"
-            android:title="Share Subject" />
+            app:title="@string/Share_Subject"
+            app:summary="@string/subjectSummary"
+            app:persistent="true"/>
+
         <EditTextPreference
-            android:defaultValue="@string/Text"
             app:key="@string/Share_Text"
-            android:summary="@string/textSummary"
-            android:title="@string/Text" />
+            app:summary="@string/textSummary"
+            app:title="@string/Share_Text"
+            app:persistent="true"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/renderingOptions"
         android:summary="@string/renderingOptionsSummary">
         <SeekBarPreference
-            android:title="@string/Saturation"
-            android:defaultValue="15"/>
+            app:title="@string/Saturation"
+            app:defaultValue="15"
+            app:min="0"
+            android:max="100"
+            app:enabled="true"
+            app:showSeekBarValue="true"
+            />
         <SeekBarPreference
-            android:title="@string/Sketchiness"
-            android:defaultValue="15"/>
+            app:title="@string/Sketchiness"
+            app:defaultValue="15"
+            app:min="0"
+            android:max="100"
+            app:enabled="true"
+            app:showSeekBarValue="true"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
