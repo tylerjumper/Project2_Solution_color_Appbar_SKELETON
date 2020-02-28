@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
 //begin doSketch-----------------------------------
     public void doSketch() {
-        //TODO verify that app has permission to use file system
+        //TODO verify that app has permission to use file system--------------------CHECK-----------
         //do we have needed permissions?
         if (!verifyPermissions()) {
             return;
@@ -363,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 
 //begin doColorize-----------------------------------
     public void doColorize() {
-        //TODO verify that app has permission to use file system
+        //TODO verify that app has permission to use file system-------------------CHECK------------
         //do we have needed permissions?
         if (!verifyPermissions()) {
             return;

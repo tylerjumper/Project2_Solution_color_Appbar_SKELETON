@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/shareOptions">
+        <EditTextPreference
+            android:defaultValue="@string/Subject"
+            app:key="@string/Share_Subject"
+            android:summary="@string/subjectSummary"
+            android:title="Share Subject" />
+        <EditTextPreference
+            android:defaultValue="@string/Text"
+            app:key="@string/Share_Text"
+            android:summary="@string/textSummary"
+            android:title="@string/Text" />
+    </PreferenceCategory>
 
-    
+    <PreferenceCategory android:title="@string/renderingOptions"
+        android:summary="@string/renderingOptionsSummary">
+        <SeekBarPreference
+            android:title="@string/Saturation"
+            android:defaultValue="15"/>
+        <SeekBarPreference
+            android:title="@string/Sketchiness"
+            android:defaultValue="15"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>

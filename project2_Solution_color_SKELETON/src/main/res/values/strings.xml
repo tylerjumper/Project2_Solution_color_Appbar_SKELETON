@@ -8,5 +8,16 @@
     <string name="share">share</string>
     <string name="settings">settings</string>
     <string name="colorize">colorize</string>
+    <string name="Share_Subject">Share Subject</string>
+    <string name="Subject">Subject</string>
+    <string name="Text">Text</string>
+    <string name="Share_Text">Share Text</string>
+    <string name="Sketchiness">Sketchiness</string>
+    <string name="Saturation">Saturation</string>
+    <string name="textSummary">this is the text you would like to share</string>
+    <string name="subjectSummary">this is the subject of the message you would like to share</string>
+    <string name="shareOptions">Share Options</string>
+    <string name="renderingOptions">Rendering Options</string>
+    <string name="renderingOptionsSummary">Level of sketchiness and color saturation</string>
 
 </resources>
