@@ -191,11 +191,9 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         //get some paths
         // Create the File where the photo should go
         File photoFile = createImageFile(ORIGINAL_FILE);
-        //assert photoFile != null;
         originalImagePath = photoFile.getAbsolutePath();
 
         File processedfile = createImageFile(PROCESSED_FILE);
-        //assert processedfile != null;
         processedImagePath=processedfile.getAbsolutePath();
 
         //worst case get from default image
@@ -208,10 +206,17 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
 //end setUpFileSystem-------------------------------------
 
 //begin createImageFile-------------------------------------
-    //TODO manage creating a file to store camera image in
-    //TODO where photo is stored
+    //TODO manage creating a file to store camera image in-----------CHECK-------------------
+    //TODO where photo is stored-------------------------------------CHECK-------------------
     private File createImageFile(final String fn) {
-        //TODO fill in
+        //TODO fill in-----------------------------------------------CHECK-------------------
+        //creates a new FIle object
+        File storeFile = new File(fn);
+        //make sure it isn't null
+        if(fn != null){
+            //if not return it
+            return storeFile;
+        }
         return null;
     }
 //end createImageFile-------------------------------------
@@ -277,14 +282,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         //TODO manage launching intent to take a picture
         //launching intent
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             //create the file to save the photo to
-            setUpFileSystem();
-
-            if(originalImagePath != null){
-                 outputFileUri = outputFileUri;
-            }
-
+            createImageFile(ORIGINAL_FILE);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
             startActivityForResult(takePictureIntent, TAKE_PICTURE);
         }
