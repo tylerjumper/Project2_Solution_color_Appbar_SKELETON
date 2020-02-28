@@ -1,9 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <EditTextPreference
+        android:id="@+id/ShareInfo"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <SeekBar
+        android:id="@+id/sketchiness"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <SeekBar
+        android:id="@+id/saturation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>

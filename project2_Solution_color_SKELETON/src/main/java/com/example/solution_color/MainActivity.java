@@ -33,6 +33,8 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.library.bitmap_utilities.BitMap_Helpers;
 
 import java.io.File;
@@ -99,6 +101,23 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
                 //TODO manage this, mindful of permissions
                 //1 ask permission
                     //requestPermissions();
+                PermissionListener permissionlistener = new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        Toast.makeText(MainActivity.this, "Permission granted", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(List<String> deniedPermissions) {
+                        Toast.makeText(MainActivity.this, "Permission not given", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                TedPermission.with(MainActivity.this)
+                        .setPermissionListener(permissionlistener)
+                        .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE
+                        ,Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        , Manifest.permission.CAMERA)
+                        .check();
                 //2 call doTake picture
                 doTakePicture(view);
 
@@ -172,11 +191,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         //get some paths
         // Create the File where the photo should go
         File photoFile = createImageFile(ORIGINAL_FILE);
-        assert photoFile != null;
+        //assert photoFile != null;
         originalImagePath = photoFile.getAbsolutePath();
 
         File processedfile = createImageFile(PROCESSED_FILE);
-        assert processedfile != null;
+        //assert processedfile != null;
         processedImagePath=processedfile.getAbsolutePath();
 
         //worst case get from default image
@@ -256,6 +275,19 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         //TODO verify that app has permission to use camera------
         verifyPermissions();
         //TODO manage launching intent to take a picture
+        //launching intent
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            //create the file to save the photo to
+            setUpFileSystem();
+
+            if(originalImagePath != null){
+                 outputFileUri = outputFileUri;
+            }
+
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+            startActivityForResult(takePictureIntent, TAKE_PICTURE);
+        }
 
 
     }
@@ -267,6 +299,7 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
         super.onActivityResult(requestCode, resultCode, data);
         //TODO get photo
         //TODO set the myImage equal to the camera image returned
+
         //TODO tell scanner to pic up this unaltered image
         //TODO save anything needed for later
 
@@ -376,6 +409,11 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
     }
 //end doShare-----------------------------------
 
+    private void doPreferences() {
+        Intent myintent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(myintent);
+    }
+
 
     //TODO set this up-------------------------------CHECK------------------------------------
     /*All event handlers for the app bar will be sent here then call
@@ -402,9 +440,10 @@ public class MainActivity extends AppCompatActivity implements OnSharedPreferenc
                return true;
            case R.id.settings:
                //user chose settings button
+               doPreferences();
                return true;
        }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     //TODO set up pref changes
